@@ -69,7 +69,7 @@ const Signup: React.FC = () => {
         </button>
         <Link
           to={"/login"}
-          className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+          className="w-full text-end text-rose-500  hover:text-rose-600 hover:underline"
         >
           Login
         </Link>

@@ -32,6 +32,7 @@ const Login: React.FC = () => {
         <div className="mb-4">
           <input
             type="email"
+            name="email"
             placeholder="Email"
             className="w-full p-2 rounded border border-gray-300 focus:outline-none focus:border-blue-500"
             value={formData.email}
@@ -41,6 +42,7 @@ const Login: React.FC = () => {
         <div className="mb-6">
           <input
             type="password"
+            name="password"
             placeholder="Password"
             className="w-full p-2 rounded border border-gray-300 focus:outline-none focus:border-blue-500"
             value={formData.password}
@@ -55,7 +57,7 @@ const Login: React.FC = () => {
         </button>
         <Link
           to={"/signup"}
-          className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+          className="w-full text-end text-rose-500  hover:text-rose-600 hover:underline"
         >
           Sign Up
         </Link>
