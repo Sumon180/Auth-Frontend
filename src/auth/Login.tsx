@@ -1,11 +1,28 @@
-import React, { useState } from "react";
+import React, { ChangeEventHandler, useState } from "react";
+import { Link } from "react-router-dom";
+
+interface FormData {
+  email: string;
+  password: string;
+}
 
 const Login: React.FC = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState<FormData>({
+    email: "",
+    password: "",
+  });
 
-  const handleLogin = () => {
-    // Implement your login logic here
+  const handleInputChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
+  const handleLogin = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    console.log(formData);
   };
 
   return (
@@ -17,8 +34,8 @@ const Login: React.FC = () => {
             type="email"
             placeholder="Email"
             className="w-full p-2 rounded border border-gray-300 focus:outline-none focus:border-blue-500"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={formData.email}
+            onChange={handleInputChange}
           />
         </div>
         <div className="mb-6">
@@ -26,16 +43,22 @@ const Login: React.FC = () => {
             type="password"
             placeholder="Password"
             className="w-full p-2 rounded border border-gray-300 focus:outline-none focus:border-blue-500"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={formData.password}
+            onChange={handleInputChange}
           />
         </div>
         <button
           onClick={handleLogin}
-          className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+          className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 mb-4"
         >
           Login
         </button>
+        <Link
+          to={"/signup"}
+          className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+        >
+          Sign Up
+        </Link>
       </div>
     </div>
   );
