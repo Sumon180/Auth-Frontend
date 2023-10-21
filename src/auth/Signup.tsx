@@ -1,20 +1,21 @@
-import React, { ChangeEventHandler, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 interface FormData {
-  username: string;
+  fullname: string;
   email: string;
   password: string;
 }
 
 const Signup: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
-    username: "",
+    fullname: "",
     email: "",
     password: "",
   });
 
-  const handleInputChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -22,9 +23,17 @@ const Signup: React.FC = () => {
     }));
   };
 
-  const handleSignup = (e: { preventDefault: () => void }) => {
+  const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData);
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/v1/user/signup",
+        formData
+      );
+      console.log(response);
+    } catch (error) {
+      console.error("Error registering user:", error);
+    }
   };
 
   return (
@@ -34,10 +43,10 @@ const Signup: React.FC = () => {
         <div className="mb-4">
           <input
             type="text"
-            name="username"
-            placeholder="Username"
+            name="fullname"
+            placeholder="Full name"
             className="w-full p-2 rounded border border-gray-300 focus:outline-none focus:border-blue-500"
-            value={formData.username}
+            value={formData.fullname}
             onChange={handleInputChange}
           />
         </div>
@@ -68,7 +77,7 @@ const Signup: React.FC = () => {
           Signup
         </button>
         <Link
-          to={"/login"}
+          to="/login"
           className="w-full text-end text-rose-500  hover:text-rose-600 hover:underline"
         >
           Login
